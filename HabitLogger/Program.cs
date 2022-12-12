@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Database.Connection();
+            HabitLoggerEngine.CreateDatabase();
             Menu.ShowMenu();
         }
     }
