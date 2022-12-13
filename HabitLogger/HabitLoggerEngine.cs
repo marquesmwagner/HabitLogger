@@ -29,5 +29,25 @@ namespace HabitLogger
                 connection.Close();
             }
         }
+        internal static void Insert()
+        {
+            var date = Helpers.GetDateInput();
+
+            var quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
+
+            using (var connection = new SQLiteConnection(connectionString)) 
+            {
+                connection.Open();
+                
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText =
+                    $"INSERT INTO drinking_water(date, quantity) VALUES('{date}', {quantity})";
+
+                tableCmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+        
     }
 }
