@@ -12,7 +12,7 @@ namespace HabitLogger
         internal static string GetDateInput()
         {
             Console.WriteLine("\nPlease insert the date: (dd-mm-yy). Type 0 to return to menu.\n");
-            string dateInput = Console.ReadLine().Trim();
+            var dateInput = Console.ReadLine().Trim();
 
             if (dateInput == "0") Menu.ShowMenu();
 
@@ -23,6 +23,24 @@ namespace HabitLogger
             }
 
             return dateInput;
+        }
+        internal static int GetNumberInput(string message) 
+        {
+            Console.WriteLine(message);
+
+            var numberInput = Console.ReadLine();
+
+            if (numberInput == "0") Menu.ShowMenu();
+
+            while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0) 
+            {
+                Console.WriteLine("\nInvalid number. Try again.\n");
+                numberInput = Console.ReadLine();
+            }
+
+            var finalInput = Convert.ToInt32(numberInput);
+
+            return finalInput;
         }
     }
 }
