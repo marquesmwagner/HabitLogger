@@ -25,7 +25,9 @@ namespace HabitLogger
                     @"CREATE TABLE IF NOT EXISTS drinking_water (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Date TEXT,
-                        Quantity INTEGER
+                        Type TEXT,
+                        Quantity INTEGER,
+                        Unit TEXT
                         )";
 
                 tableCmd.ExecuteNonQuery();
@@ -59,7 +61,9 @@ namespace HabitLogger
                             {
                                 Id = reader.GetInt32(0),
                                 Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("en-US")),
-                                Quantity = reader.GetInt32(2)
+                                Type = reader.GetString(2),
+                                Quantity = reader.GetInt32(3),
+                                Unit = reader.GetString(4)
                             });
                     }
                     listIsEmpty = false;
@@ -75,7 +79,7 @@ namespace HabitLogger
                 Console.WriteLine("-----------------------------------\n");
                 foreach (var dw in tableData)
                 {
-                    Console.WriteLine($"{dw.Id} - {dw.Date.ToString("dd-MM-yy")} - Quantity: {dw.Quantity}");
+                    Console.WriteLine($"{dw.Id} - {dw.Date.ToString("dd-MM-yy")} Habit: {dw.Type} - Quantity: {dw.Quantity}{dw.Unit}");
                 }
                 Console.WriteLine("\n-----------------------------------\n");
             }
@@ -86,12 +90,13 @@ namespace HabitLogger
 
             var date = Helpers.GetDateInput();
 
-            if (date == "0") 
-            {
-                return;
-            }
+            if (date == "0") return;
 
-            var quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
+            var type = Helpers.GetTextInput("\nPlease insert the type of habit.");
+
+            var unit = Helpers.GetTextInput($"\nPlease insert the unit of {type}.").ToLower();
+
+            var quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} on {unit} (no decimals allowed)\n");
 
             using (var connection = new SQLiteConnection(connectionString)) 
             {
@@ -99,7 +104,7 @@ namespace HabitLogger
                 
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText =
-                    $"INSERT INTO drinking_water(date, quantity) VALUES('{date}', {quantity})";
+                    $"INSERT INTO drinking_water(date, type, quantity, unit) VALUES('{date}', '{type}', {quantity}, '{unit}')";
 
                 tableCmd.ExecuteNonQuery();
 
