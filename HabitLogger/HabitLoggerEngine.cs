@@ -86,6 +86,11 @@ namespace HabitLogger
 
             var date = Helpers.GetDateInput();
 
+            if (date == "0") 
+            {
+                return;
+            }
+
             var quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
 
             using (var connection = new SQLiteConnection(connectionString)) 

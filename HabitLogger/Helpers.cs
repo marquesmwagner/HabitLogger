@@ -14,7 +14,7 @@ namespace HabitLogger
             Console.WriteLine("\nPlease insert the date: (dd-mm-yy). Type 0 to return to menu.\n");
             var dateInput = Console.ReadLine().Trim();
 
-            if (dateInput == "0") Menu.ShowMenu();
+            if (dateInput == "0") return "0";
 
             while (!DateTime.TryParseExact(dateInput,"dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
             {
