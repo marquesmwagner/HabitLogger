@@ -82,6 +82,8 @@ namespace HabitLogger
         }
         internal static void Insert()
         {
+            Console.Clear();
+
             var date = Helpers.GetDateInput();
 
             var quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
@@ -98,6 +100,8 @@ namespace HabitLogger
 
                 connection.Close();
             }
+
+            Console.Clear();
         }
         internal static void Delete()
         {
@@ -105,7 +109,7 @@ namespace HabitLogger
 
             if (listIsEmpty)
             {
-                Console.WriteLine("\nThe list is empty. You can't delete any record.");
+                Console.WriteLine("\nThe list is empty. You can't exclude any record.");
                 return;
             }
             
@@ -133,6 +137,47 @@ namespace HabitLogger
 
                 connection.Close();
             }    
+        }
+        internal static void Update()
+        {
+            GetAllRecords();
+
+            if (listIsEmpty)
+            {
+                Console.WriteLine("\nThe list is empty. You can't update any record.");
+                return;
+            }
+
+            var recordId = Helpers.GetNumberInput("\nPlease type the Id of the record you want to update or type 0 to go back to menu.\n");
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var checkCmd = connection.CreateCommand();
+                checkCmd.CommandText =
+                    $"SELECT EXISTS(SELECT 1 FROM drinking_water WHERE Id = {recordId})";
+                int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (checkQuery == 0)
+                {
+                    Console.WriteLine($"\nRecord with Id {recordId} doesn't exist.");
+                    connection.Close();
+                    return;
+                }
+
+                string date = Helpers.GetDateInput();
+
+                int quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
+
+                var tableCmd = connection.CreateCommand() ;
+                tableCmd.CommandText =
+                    $"UPDATE drinking_water SET date = '{date}', quantity = {quantity} WHERE Id = {recordId}";
+
+                tableCmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
         }
     }
 }
