@@ -34,12 +34,16 @@ namespace HabitLogger
                         closeApp = true;
                         break;
                     case "1":
+                        HabitLoggerEngine.GetAllRecords();
                         break;
                     case "2":
+                        HabitLoggerEngine.Insert();
                         break;
                     case "3":
+                        HabitLoggerEngine.Delete();
                         break;
                     case "4":
+                        HabitLoggerEngine.Update();
                         break;
                     default:
                         Console.WriteLine("\nInvalid input. Please type a number from 0 to 4.");

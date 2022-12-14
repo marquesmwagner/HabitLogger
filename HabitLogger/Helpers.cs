@@ -30,7 +30,7 @@ namespace HabitLogger
 
             var numberInput = Console.ReadLine();
 
-            if (numberInput == "0") Menu.ShowMenu();
+            if (numberInput == "0") return 0;
 
             while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0) 
             {
