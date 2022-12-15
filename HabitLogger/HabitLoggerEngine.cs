@@ -79,7 +79,7 @@ namespace HabitLogger
                 Console.WriteLine("-----------------------------------\n");
                 foreach (var dw in tableData)
                 {
-                    Console.WriteLine($"{dw.Id} - {dw.Date.ToString("dd-MM-yy")} Habit: {dw.Type} - Quantity: {dw.Quantity}{dw.Unit}");
+                    Console.WriteLine($"{dw.Id} - {dw.Date.ToString("dd-MM-yy")} Habit: {dw.Type} - Quantity: {dw.Quantity} {dw.Unit}");
                 }
                 Console.WriteLine("\n-----------------------------------\n");
             }
@@ -92,11 +92,11 @@ namespace HabitLogger
 
             if (date == "0") return;
 
-            var type = Helpers.GetTextInput("\nPlease insert the type of habit.");
+            var type = Helpers.GetTextInput("\nPlease insert the type of habit");
 
-            var unit = Helpers.GetTextInput($"\nPlease insert the unit of {type}.").ToLower();
+            var unit = Helpers.GetTextInput($"\nPlease insert the unit of {type}").ToLower();
 
-            var quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} on {unit} (no decimals allowed)\n");
+            var quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} in {unit} (no decimals allowed)\n");
 
             using (var connection = new SQLiteConnection(connectionString)) 
             {
@@ -178,11 +178,15 @@ namespace HabitLogger
 
                 string date = Helpers.GetDateInput();
 
-                int quantity = Helpers.GetNumberInput("\nPlease insert number of glasses or other measure of your choice (no decimals allowed)\n");
+                var type = Helpers.GetTextInput($"\nPlease insert the type of habit");
+
+                var unit = Helpers.GetTextInput($"\nPlease insert the unit of {type}");
+
+                int quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} in {unit} (no decimals allowed)");
 
                 var tableCmd = connection.CreateCommand() ;
                 tableCmd.CommandText =
-                    $"UPDATE drinking_water SET date = '{date}', quantity = {quantity} WHERE Id = {recordId}";
+                    $"UPDATE drinking_water SET date = '{date}', type = '{type}', quantity = {quantity}, unit = '{unit}' WHERE Id = {recordId}";
 
                 tableCmd.ExecuteNonQuery();
 
