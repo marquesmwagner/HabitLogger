@@ -23,7 +23,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    @"CREATE TABLE IF NOT EXISTS drinking_water (
+                    @"CREATE TABLE IF NOT EXISTS habit_table (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Date TEXT,
                         Type TEXT,
@@ -47,7 +47,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    "SELECT * FROM drinking_water";
+                    "SELECT * FROM habit_table";
 
                 List<Models.HabbitLogger> tableData = new();
 
@@ -98,7 +98,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    $"SELECT * FROM drinking_water WHERE substr(date, -2) = '{year}' ORDER BY date";
+                    $"SELECT * FROM habit_table WHERE substr(date, -2) = '{year}' ORDER BY date";
 
                 List<Models.HabbitLogger> tableData = new();
 
@@ -150,7 +150,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    $"SELECT * FROM drinking_water WHERE type = '{habit}' ORDER BY date";
+                    $"SELECT * FROM habit_table WHERE type = '{habit}' ORDER BY date";
 
                 List<Models.HabbitLogger> tableData = new();
 
@@ -209,7 +209,7 @@ namespace HabitLogger
                 
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText =
-                    $"INSERT INTO drinking_water(date, type, quantity, unit) VALUES('{date}', '{type}', {quantity}, '{unit}')";
+                    $"INSERT INTO habit_table(date, type, quantity, unit) VALUES('{date}', '{type}', {quantity}, '{unit}')";
 
                 tableCmd.ExecuteNonQuery();
 
@@ -237,7 +237,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    $"DELETE FROM drinking_water WHERE Id = '{recordId}'";
+                    $"DELETE FROM habit_table WHERE Id = '{recordId}'";
 
                 var rowCount = tableCmd.ExecuteNonQuery();
 
@@ -271,7 +271,7 @@ namespace HabitLogger
 
                 var checkCmd = connection.CreateCommand();
                 checkCmd.CommandText =
-                    $"SELECT EXISTS(SELECT 1 FROM drinking_water WHERE Id = {recordId})";
+                    $"SELECT EXISTS(SELECT 1 FROM habit_table WHERE Id = {recordId})";
                 int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
 
                 if (checkQuery == 0)
@@ -291,7 +291,7 @@ namespace HabitLogger
 
                 var tableCmd = connection.CreateCommand() ;
                 tableCmd.CommandText =
-                    $"UPDATE drinking_water SET date = '{date}', type = '{type}', quantity = {quantity}, unit = '{unit}' WHERE Id = {recordId}";
+                    $"UPDATE habit_table SET date = '{date}', type = '{type}', quantity = {quantity}, unit = '{unit}' WHERE Id = {recordId}";
 
                 tableCmd.ExecuteNonQuery();
 
