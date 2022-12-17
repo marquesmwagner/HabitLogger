@@ -122,8 +122,61 @@ namespace HabitLogger
                 }
                 else
                 {
-                    Console.WriteLine("No rows found");
+                    Console.WriteLine("\nYear not found");
                     listIsEmpty = true;
+                    return;
+                }
+
+                connection.Close();
+
+                Console.WriteLine("-----------------------------------\n");
+                foreach (var dw in tableData)
+                {
+                    Console.WriteLine($"{dw.Id} - {dw.Date.ToString("dd-MM-yy")} Habit: {dw.Type} - Quantity: {dw.Quantity} {dw.Unit}");
+                }
+                Console.WriteLine("\n-----------------------------------\n");
+            }
+        }
+        internal static void GetRecordsBySpecificHabit()
+        {
+            Console.Clear();
+
+            var habit = Helpers.GetTextInput("\nPlease insert the habit that you want to list");
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var tableCmd = connection.CreateCommand();
+
+                tableCmd.CommandText =
+                    $"SELECT * FROM drinking_water WHERE type = '{habit}' ORDER BY date";
+
+                List<Models.HabbitLogger> tableData = new();
+
+                SQLiteDataReader reader = tableCmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        tableData.Add(
+                            new Models.HabbitLogger
+                            {
+                                Id = reader.GetInt32(0),
+                                Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("en-US")),
+                                Type = reader.GetString(2),
+                                Quantity = reader.GetInt32(3),
+                                Unit = reader.GetString(4)
+                            });
+                    }
+                    listIsEmpty = false;
+                }
+                else
+                {
+                    Console.WriteLine("\nHabit not found");
+                    listIsEmpty = true;
+                    return;
                 }
 
                 connection.Close();
@@ -148,7 +201,7 @@ namespace HabitLogger
 
             var unit = Helpers.GetTextInput($"\nPlease insert the unit of {type}").ToLower();
 
-            var quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} in {unit} (no decimals allowed)\n");
+            var quantity = Helpers.GetNumberInput($"\nPlease insert number of {type} in {unit} (no decimals allowed)");
 
             using (var connection = new SQLiteConnection(connectionString)) 
             {
