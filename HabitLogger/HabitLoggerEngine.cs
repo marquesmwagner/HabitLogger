@@ -98,7 +98,7 @@ namespace HabitLogger
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    $"SELECT * FROM drinking_water WHERE substr(date, -2) = '{year}'";
+                    $"SELECT * FROM drinking_water WHERE substr(date, -2) = '{year}' ORDER BY date";
 
                 List<Models.HabbitLogger> tableData = new();
 
