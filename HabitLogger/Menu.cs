@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HabitLogger.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace HabitLogger
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("0 - Close the application");
                 Console.WriteLine("1 - View all records");
-                Console.WriteLine("2 - Insert record");
-                Console.WriteLine("3 - Delete record");
-                Console.WriteLine("4 - Update record");
+                Console.WriteLine("2 - View records by specific year");
+                Console.WriteLine("3 - View records of a specific habit");
+                Console.WriteLine("4 - Insert record");
+                Console.WriteLine("5 - Delete record");
+                Console.WriteLine("6 - Update record");
                 Console.WriteLine("----------------------------------\n");
 
                 string commandInput = Console.ReadLine();
@@ -37,12 +40,18 @@ namespace HabitLogger
                         HabitLoggerEngine.GetAllRecords();
                         break;
                     case "2":
-                        HabitLoggerEngine.Insert();
+                        HabitLoggerEngine.GetRecordsByYear();
                         break;
                     case "3":
-                        HabitLoggerEngine.Delete();
+                        HabitLoggerEngine.GetRecordsBySpecificHabit();
                         break;
                     case "4":
+                        HabitLoggerEngine.Insert();
+                        break;
+                    case "5":
+                        HabitLoggerEngine.Delete();
+                        break;
+                    case "6":
                         HabitLoggerEngine.Update();
                         break;
                     default:
