@@ -37,6 +37,6 @@ This is a aplication where you'll register your habits(ex. kms that you ran, num
 
   ![image](https://user-images.githubusercontent.com/38431500/208267761-fed17a55-a7e5-4e6f-9cc2-59949a3bb097.png)
 
-* The user is albe to view, insert, delete, update the records.
+* The user is able to view, insert, delete and update the records.
 
-  ![image](https://user-images.githubusercontent.com/38431500/208267608-866669e6-4f4d-452f-8862-c6f87f505324.png)
+  ![image](https://user-images.githubusercontent.com/38431500/208434914-e32b6b25-998f-47f6-a690-b6c6a81c19c4.png)
