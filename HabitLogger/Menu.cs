@@ -55,7 +55,7 @@ namespace HabitLogger
                         HabitLoggerEngine.Update();
                         break;
                     default:
-                        Console.WriteLine("\nInvalid input. Please type a number from 0 to 4.");
+                        Console.WriteLine("\nInvalid input. Please type a valid choice.");
                         break;
                 }
             }
