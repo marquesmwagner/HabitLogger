@@ -1,7 +1,7 @@
 # HabitLogger
 Habit Tracker console application, developed using C# and SQLite.
 
-This is a aplication where you'll register your habits(ex. kms that you ran, number of times you drank a coffee or times you brushed your teeth), store and retrieve data from a database.
+This is a application where you'll register your habits(ex. kms that you ran, number of times you drank a coffee or times you brushed your teeth), store and retrieve data from a database.
 
 # Features
 
