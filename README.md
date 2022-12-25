@@ -40,3 +40,12 @@ This is a application where you'll register your habits(ex. kms that you ran, nu
 * The user is able to view, insert, delete and update the records.
 
   ![image](https://user-images.githubusercontent.com/38431500/208434914-e32b6b25-998f-47f6-a690-b6c6a81c19c4.png)
+
+# Requirements
+
+* .NET 7.0
+
+#  Setting up
+    Clone project
+    cd ~/HabitLogger
+    dotnet run
